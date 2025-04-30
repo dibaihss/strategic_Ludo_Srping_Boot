@@ -1,0 +1,1 @@
+web: java -jar app.war --server.port=$PORT

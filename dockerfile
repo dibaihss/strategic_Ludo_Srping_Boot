@@ -53,4 +53,4 @@ EXPOSE 8080
 ENV PORT=8080
 
 # Command to run the application
-CMD ["java", "-jar", "app.war", "--server.port=${PORT}"]
+CMD ["sh", "-c", "java -jar app.war --server.port=${PORT}"]
