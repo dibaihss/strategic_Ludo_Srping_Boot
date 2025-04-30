@@ -20,9 +20,9 @@ services:
     build: .
     environment:
       - PORT=8080
-      - JDBC_DATABASE_URL=jdbc:postgresql://db:5432/postgres
-      - JDBC_DATABASE_USERNAME=postgres
-      - JDBC_DATABASE_PASSWORD=Ag3030*#66
+      - JDBC_DATABASE_URL=jdbc:postgresql://dpg-d093cq49c44c73ad3r80-a.frankfurt-postgres.render.com:5432/stragtegicludodatabase
+      - JDBC_DATABASE_USERNAME=dibaihss
+      - JDBC_DATABASE_PASSWORD=C6bLXZMiaWDJFUkfPSMXgSJ4GueSmjaP
     ports:
       - "8080:8080"
     depends_on:
