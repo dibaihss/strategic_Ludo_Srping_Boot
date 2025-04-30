@@ -17,4 +17,4 @@ EXPOSE 8080
 
 # And update the CMD to use PORT environment variable
 CMD ["sh", "-c", "java -jar target/strategicLudo-0.0.1-SNAPSHOT.war --server.port=$PORT"]
-# CMD ["java", "-jar", "target/strategicLudo-0.0.1-SNAPSHOT.war"]
+# docker run -p 8080:8080 -e PORT=8080 java-application
