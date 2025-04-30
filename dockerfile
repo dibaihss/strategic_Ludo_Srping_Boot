@@ -15,4 +15,6 @@ RUN ./mvnw clean package -DskipTests
 
 EXPOSE 8080
 
-CMD ["java", "-jar", "target/strategicLudo-0.0.1-SNAPSHOT.war"]
+# And update the CMD to use PORT environment variable
+CMD ["sh", "-c", "java -jar target/strategicLudo-0.0.1-SNAPSHOT.war --server.port=$PORT"]
+# CMD ["java", "-jar", "target/strategicLudo-0.0.1-SNAPSHOT.war"]
