@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: strategic-ludo
+    env: docker
+    plan: free
+    branch: main
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: strategic-ludo-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: strategic-ludo-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: strategic-ludo-db
+          property: password
+
+databases:
+  - name: strategic-ludo-db
+    plan: free
