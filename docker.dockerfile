@@ -5,9 +5,8 @@ WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw mvnw.cmd pom.xml ./
 
-# Fix permission issue - make this more explicit
-RUN chmod +x mvnw
-RUN ls -la mvnw  # Verify permissions
+# Fix permission issue
+RUN chmod +x ./mvnw
 
 COPY src ./src
 
