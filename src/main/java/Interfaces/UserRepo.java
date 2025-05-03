@@ -15,7 +15,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
     // Spring Data JPA automatically implements basic CRUD operations
 
     // Custom query methods
-    List<User> findByStatus(String status);
+    List<User> findByStatus(boolean status);
 
     // Custom query using JPQL
     @Query("SELECT g FROM User g WHERE g.name LIKE %:keyword%")

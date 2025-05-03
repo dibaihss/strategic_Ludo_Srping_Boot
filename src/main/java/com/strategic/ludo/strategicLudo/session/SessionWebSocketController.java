@@ -1,6 +1,7 @@
 package com.strategic.ludo.strategicLudo.session;
 
 import Entities.Session;
+import Entities.UserStatusMessage;
 import Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,15 +58,6 @@ public class SessionWebSocketController {
     @MessageMapping("/waitingRoom.gameStarted/{sessionId}")
     @SendTo("/topic/gameStarted/{sessionId}")
     public String checkGameStarted(@DestinationVariable String sessionId, @Payload String msg, SimpMessageHeaderAccessor headerAccessor) {
-  
-                return msg;
- 
-    }
-
-    @MessageMapping("/allPlayers.sendMatchData/{sessionId}")
-    @SendTo("/topic/sessionData/{sessionId}")
-    public String updateSessionDatabyAllPlayers(@DestinationVariable String sessionId, @Payload String msg, SimpMessageHeaderAccessor headerAccessor) {
-
                 return msg;
     }
 
@@ -81,6 +73,15 @@ public class SessionWebSocketController {
         System.out.println("Message for ID: " + msg);
         return msg;
     }
+
+    @MessageMapping("/waitingRoom.notifications/{matchId}")
+    @SendTo("/topic/gameStarted/{matchId}")
+    public UserStatusMessage handleUserStatusNotification(@DestinationVariable String matchId,
+                                                          UserStatusMessage message) {
+        return message;
+    }
+
+
 
 
 }

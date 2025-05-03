@@ -24,8 +24,9 @@ public class WebConfig {
                         .allowedOrigins(
                                 "https://strategic.expo.app",
                                 "http://localhost:8081",
-                                "exp://<your-local-ip>:8081")
-                        .allowedMethods("GET", "POST", "OPTIONS")
+                                "exp://192.168.178.130:8081"
+                        )
+                        .allowedMethods("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE")
                         .allowedHeaders("*")
                         .allowCredentials(true);
 

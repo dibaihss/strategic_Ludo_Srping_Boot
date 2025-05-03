@@ -29,7 +29,7 @@ Content-Type: application/json
   "name": "Rami",
   "email": "sou@gmail.com",
   "password": "123456",
-  "status": "active"
+  "status": true
 }
 
 ###
@@ -63,3 +63,22 @@ Content-Type: application/json
   {
     "name": "Guest User"
   }
+
+###
+### GET request with a header
+GET https://strategic-ludo-srping-boot.onrender.com/api/users
+Accept: application/json
+
+### 
+# Note: Replace 1 with the actual session ID and user ID after creating them
+DELETE http://localhost:8080/api/sessions/1
+###
+
+###
+# Note: Replace 1 with the actual session ID and user ID after creating them
+PUT http://localhost:8080/api/users/1/status
+Content-Type: application/json
+
+{
+  "status": false
+}

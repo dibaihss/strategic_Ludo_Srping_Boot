@@ -1,5 +1,6 @@
 package Controllers;
 
+import Entities.StatusUpdateRequest;
 import Services.RateLimiterService;
 import Services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -77,7 +78,7 @@ public class UsersController {
         // Create a temporary user with guest status
         User guestUser = new User();
         guestUser.setName("Guest_" + UUID.randomUUID().toString().substring(0, 8));
-        guestUser.setStatus("active");
+        guestUser.setStatus(true);
         guestUser.setGuest(true);
 
         // Set the creation timestamp manually (though this will be handled by
@@ -115,4 +116,17 @@ public class UsersController {
         // Authentication failed
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
     }
+
+    @PutMapping("/users/{id}/status")
+    public ResponseEntity<User> updateUserStatus(@PathVariable Long id, @RequestBody StatusUpdateRequest request) {
+        Optional<User> userOptional = userService.getUserById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            user.setStatus(request.isStatus());
+            User updatedUser = userService.saveUser(user);
+            return ResponseEntity.ok(updatedUser);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
+

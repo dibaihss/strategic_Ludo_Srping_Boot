@@ -17,7 +17,7 @@ public class User {
     private Long id;
 
     private String name;
-    private String status;
+    private boolean status;
     private boolean isGuest = false;
     @Column(unique = true) // Make email unique
     private String email; // Added email attribute
@@ -54,11 +54,11 @@ public class User {
         this.name = name;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
