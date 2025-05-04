@@ -1,6 +1,7 @@
 package Controllers;
 
 import Entities.Session;
+import Entities.StatusUpdateRequest;
 import Entities.User;
 import Services.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,6 @@ public class SessionsController {
         return ResponseEntity.ok(updatedSession);
     }
 
-
     // Delete a session
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSession(@PathVariable Long id) {
@@ -87,7 +87,10 @@ public class SessionsController {
     public ResponseEntity<Map<String, Object>> addUserToSession(
             @PathVariable Long sessionId, 
             @PathVariable Long userId) {
-        
+                
+          // Remove the user from any other session
+        sessionService.removeUserFromOtherSessions(userId);
+
         boolean added = sessionService.addUserToSession(sessionId, userId);
         
         Map<String, Object> response = new HashMap<>();

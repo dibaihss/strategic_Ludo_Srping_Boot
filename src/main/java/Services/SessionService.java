@@ -67,7 +67,7 @@ public class SessionService {
             if (session.isFull()) {
                 return false;
             }
-            
+
             // Check if user is already in the session
             if (session.getUsers().contains(user)) {
                 return true; // User is already in this session
@@ -85,18 +85,28 @@ public class SessionService {
         return false;
     }
 
-    // Remove a user from a session
     public boolean removeUserFromSession(Long sessionId, Long userId) {
         Optional<Session> sessionOpt = sessionRepo.findById(sessionId);
         Optional<User> userOpt = userRepo.findById(userId);
-
+    
         if (sessionOpt.isPresent() && userOpt.isPresent()) {
             Session session = sessionOpt.get();
             User user = userOpt.get();
-
+    
+            System.out.println("Users before removal: " + session.getUsers());
             boolean removed = session.removeUser(user);
+            System.out.println("Users after removal: " + session.getUsers());
+    
             if (removed) {
-                sessionRepo.save(session);
+                if (session.getUsers().isEmpty()) {
+                    // If the session is empty, delete it
+                    System.out.println("Session is empty. Deleting session.");
+                    sessionRepo.delete(session);
+                } else {
+                    // Otherwise, save the updated session
+                    System.out.println("Session is not empty. Saving session.");
+                    sessionRepo.save(session);
+                }
                 return true;
             }
         }
@@ -114,5 +124,23 @@ public class SessionService {
         if (!emptySessions.isEmpty()) {
             sessionRepo.deleteAll(emptySessions);
         }
+    }
+
+    public boolean removeUserFromOtherSessions(Long userId) {
+        // Find the session where the user is currently added
+        Optional<Session> currentSession = sessionRepo.findSessionByUserId(userId);
+        if (currentSession.isPresent()) {
+            Session session = currentSession.get();
+            session.getUsers().removeIf(user -> user.getId().equals(userId)); // Remove the user
+            if (session.getUsers().isEmpty()) {
+                // If the session is empty, delete it
+                sessionRepo.delete(session);
+            } else {
+                // Otherwise, save the updated session
+                sessionRepo.save(session);
+            }
+            return true;
+        }
+        return false; // User was not in any session
     }
 }
