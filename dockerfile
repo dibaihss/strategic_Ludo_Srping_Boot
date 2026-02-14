@@ -20,7 +20,7 @@
 # # docker run -p 8080:8080 -e PORT=8080 java-application
 
 # Build stage
-FROM eclipse-temurin:25-jdk AS build
+FROM eclipse-temurin:21-jdk AS build
 WORKDIR /app
 
 # Copy Maven wrapper and POM first (for better layer caching)
@@ -40,11 +40,11 @@ COPY src/ ./src/
 RUN ./mvnw clean package -DskipTests
 
 # Runtime stage (smaller image)
-FROM eclipse-temurin:25-jre
+FROM eclipse-temurin:21-jre
 WORKDIR /app
 
 # Copy the built artifact from the build stage
-COPY --from=build /app/target/strategicLudo-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 
 # Expose the application port
 EXPOSE 8080
