@@ -40,11 +40,11 @@ COPY src/ ./src/
 RUN ./mvnw clean package -DskipTests
 
 # Runtime stage (smaller image)
-FROM eclipse-temurin:25-jdk
+FROM eclipse-temurin:25-jre
 WORKDIR /app
 
 # Copy the built artifact from the build stage
-COPY --from=build /app/target/strategicLudo-0.0.1-SNAPSHOT.war app.war
+COPY --from=build /app/target/strategicLudo-0.0.1-SNAPSHOT.jar app.jar
 
 # Expose the application port
 EXPOSE 8080
@@ -53,4 +53,4 @@ EXPOSE 8080
 ENV PORT=8080
 
 # Command to run the application
-CMD ["sh", "-c", "java -jar app.war --server.port=${PORT}"]
+CMD ["sh", "-c", "java -jar app.jar --server.port=${PORT}"]
