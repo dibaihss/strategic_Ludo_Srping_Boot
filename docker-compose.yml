@@ -20,7 +20,7 @@ services:
     build: .
     environment:
       - PORT=8080
-      - JDBC_DATABASE_URL=jdbc:postgresql://v2postgresql_user:F90kJzTrHTz9lk7b8eOVTwNnhgfJC63M@dpg-d4kpio8dl3ps73fk124g-a.frankfurt-postgres.render.com/v2postgresql
+      - JDBC_DATABASE_URL=jdbc:postgresql://ludopgsqlserver.postgres.database.azure.com:5432/postgres?user=souhibznkk@gmail.com&password=Password123!&sslmode=require
       - JDBC_DATABASE_USERNAME=v2postgresql_user
       - JDBC_DATABASE_PASSWORD=F90kJzTrHTz9lk7b8eOVTwNnhgfJC63M
     ports:
